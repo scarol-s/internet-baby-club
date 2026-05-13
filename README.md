@@ -117,17 +117,17 @@ internet-baby-club/
 
 ## Etapa 4 — Repositório no GitHub
 
-🔗 **Link do repositório:** `[adicionar link aqui]`
+ **Link do repositório:** ``
 
 ---
 
 ## Etapa 5 — Deploy na Vercel
 
-🚀 **Link do deploy:** `https://internet-baby-club.vercel.app/`
+**Link do deploy:** `https://internet-baby-club.vercel.app/`
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 | Ferramenta | Uso |
 |---|---|
@@ -139,7 +139,7 @@ internet-baby-club/
 
 ---
 
-## 📌 Observações
+## Observações
 
 - O projeto é um **e-commerce fanmade** para fãs
 - Os produtos incluem: pôsteres, canetas, canecas, camisetas, chaveiros, pulseiras, cadernos, colecionáveis, fanzines, bonés e ecobags
