@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Desejos — Internet Baby Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Matangi&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <style>
+.wishlist-page{padding:80px 32px;max-width:1000px;margin:0 auto;}
+.wishlist-page h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;text-transform:uppercase;margin-bottom:8px;}
+.wishlist-page > p{opacity:0.6;margin-bottom:48px;}
+.wishlist-empty{text-align:center;padding:80px 20px;border:1.5px dashed var(--black);}
+.wishlist-empty .empty-icon{font-size:4rem;margin-bottom:24px;}
+.wishlist-empty h2{font-size:1.5rem;font-weight:700;text-transform:uppercase;margin-bottom:12px;}
+.wishlist-empty p{opacity:0.6;margin-bottom:32px;}
+.btn-explore{display:inline-block;background:var(--purple);color:white;font-family:var(--font);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:14px 28px;border:1.5px solid var(--black);box-shadow:4px 4px 0 var(--black);text-decoration:none;transition:transform 0.15s,box-shadow 0.15s;}
+.btn-explore:hover{transform:translate(2px,2px);box-shadow:none;}
+.wishlist-tip{margin-top:48px;background:var(--blue);border:1.5px solid var(--black);padding:24px;box-shadow:4px 4px 0 var(--black);}
+.wishlist-tip p{font-size:0.9rem;line-height:1.6;}
+.wishlist-tip strong{font-weight:700;}
+</style>
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+  <nav class="navbar" role="navigation" aria-label="Menu principal">
+    <div class="ticker-wrap" aria-hidden="true"><div class="ticker-track">
+      <span>Bem-vindos ao clube</span><span>Internet baby club</span><span>Feito de fãs para fãs</span>
+      <span>Bem-vindos ao clube</span><span>Internet baby club</span><span>Feito de fãs para fãs</span>
+    </div></div>
+    <div class="nav-top">
+      <button class="hamburger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="nav-socials">
+        <a href="#" aria-label="Instagram" target="_blank"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+        <a href="#" aria-label="TikTok" target="_blank"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+        <a href="#" aria-label="Twitter/X" target="_blank"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+      </div>
+      <a class="nav-logo" href="../index.html">
+        <img src="../assets/img/logo internet baby club preta_Prancheta 1.png" alt="Internet Baby Club" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/>
+        <span class="logo-placeholder" style="display:none;">Internet Baby Club</span>
+      </a>
+      <div class="nav-icons">
+        <button class="nav-icon-btn search-btn" aria-label="Buscar">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <div class="search-input-wrap"><input type="text" placeholder="Buscar produtos..."/></div>
+        </button>
+        <button class="nav-icon-btn hide-mobile" id="openAuth">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="btn-label">Cadastro/Login</span>
+        </button>
+        <button class="nav-icon-btn hide-mobile" aria-label="Lista de desejos">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="btn-label">Lista de Desejos</span>
+        </button>
+        <button class="nav-icon-btn" aria-label="Carrinho" style="position:relative;">
+          <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="btn-label">Carrinho</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </button>
+      </div>
+    </div>
+    <ul class="nav-menu" role="menubar">
+      <li><a href="../index.html" >Início</a></li>
+      <li><a href="lancamentos.html" >Lançamentos</a></li>
+      <li><a href="produtos.html" >Produtos</a></li>
+      <li><a href="artistas.html" >Artistas</a></li>
+      <li><a href="lista-de-desejos.html" class='active'>Lista de Desejos</a></li>
+      <li><a href="sobre.html" >Sobre</a></li>
+      <li><a href="contato.html" >Contato</a></li>
+    </ul>
+  </nav>
+  <main class="page-offset">
+    <div class="wishlist-page">
+      <h1>Lista de Desejos</h1>
+      <p>Salve os produtos que você ama e compre quando quiser!</p>
+      <div class="wishlist-empty">
+        <div class="empty-icon">🤍</div>
+        <h2>Sua lista está vazia</h2>
+        <p>Adicione produtos à sua lista de desejos clicando no ícone de coração em qualquer produto.</p>
+        <a href="produtos.html" class="btn-explore">Explorar produtos →</a>
+      </div>
+      <div class="wishlist-tip">
+        <p><strong>Dica:</strong> Faça login para salvar sua lista de desejos e acessar de qualquer dispositivo. Os itens da sua lista ficam reservados por 30 dias!</p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="../assets/img/logo-cream.png" alt="Internet Baby Club" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/>
+        <span class="logo-placeholder" style="display:none;">Internet Baby Club</span>
+        <p>Feito de fãs para fãs,<br/>com muito amor e carinho.</p>
+      </div>
+      <div class="footer-col"><h4>loja</h4><ul>
+        <li><a href="produtos.html">Todos os produtos</a></li>
+        <li><a href="lancamentos.html">Lançamentos</a></li>
+        <li><a href="lista-de-desejos.html">Lista de Desejos</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Informações</h4><ul>
+        <li><a href="sobre.html">Sobre nós</a></li>
+        <li><a href="contato.html">Contato</a></li>
+        <li><a href="artistas.html">Artistas</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">© 2025 Internet Baby Club — feito de fãs para fãs 🦋</span></div>
+  </footer>  <div class="auth-overlay" id="authOverlay" aria-hidden="true">
+    <div class="auth-modal" role="dialog" aria-modal="true">
+      <button class="auth-close" id="authClose"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="cadastro">Cadastro</button>
+        <button class="auth-tab" data-tab="login">Login</button>
+        <div class="auth-tab-indicator"></div>
+      </div>
+      <div class="auth-panel active" id="panel-cadastro">
+        <h2>Bem-vindo ao clube!</h2><p class="auth-subtitle">Crie sua conta do IBC</p>
+        <div class="auth-field"><label for="c-nome">Nome</label><input type="text" id="c-nome" placeholder="Seu nome"/></div>
+        <div class="auth-field"><label for="c-email">E-mail</label><input type="email" id="c-email" placeholder="seuemail@exemplo.com"/></div>
+        <div class="auth-field"><label for="c-senha">Senha</label><input type="password" id="c-senha" placeholder="••••••••"/></div>
+        <button class="auth-submit">Criar conta</button>
+        <p class="auth-switch">Já tem conta? <button class="auth-switch-btn" data-goto="login">Fazer login</button></p>
+      </div>
+      <div class="auth-panel" id="panel-login">
+        <h2>Olá de volta!</h2><p class="auth-subtitle">Entre na sua conta do IBC</p>
+        <div class="auth-field"><label for="l-email">E-mail</label><input type="email" id="l-email" placeholder="seuemail@exemplo.com"/></div>
+        <div class="auth-field"><label for="l-senha">Senha</label><input type="password" id="l-senha" placeholder="••••••••"/></div>
+        <a href="#" class="auth-forgot">Esqueci minha senha</a>
+        <button class="auth-submit">Entrar</button>
+        <p class="auth-switch">Não tem conta? <button class="auth-switch-btn" data-goto="cadastro">Criar conta</button></p>
+      </div>
+    </div>
+  </div>  <script src="../assets/js/main.js"></script>
+</body>
+</html>

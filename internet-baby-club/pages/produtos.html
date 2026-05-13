@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produtos — Internet Baby Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Matangi&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* ---- PAGE: PRODUTOS ---- */
+    .products-page { padding: 40px 32px 80px; max-width: 1400px; margin: 0 auto; }
+    .products-page-header { margin-bottom: 40px; }
+    .products-page-header h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em; }
+    .products-page-header p { margin-top: 8px; opacity: 0.65; font-size: 1rem; }
+
+    .products-layout { display: grid; grid-template-columns: 240px 1fr; gap: 40px; }
+    @media (max-width: 768px) { .products-layout { grid-template-columns: 1fr; } }
+
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+    .filter-box { border: 1.5px solid var(--black); padding: 20px; background: white; box-shadow: 4px 4px 0 var(--black); }
+    .filter-box h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; font-weight: 700; }
+    .filter-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .filter-list li button { display: flex; align-items: center; gap: 10px; font-family: var(--font); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; background: none; border: none; color: var(--black); transition: color 0.2s; }
+    .filter-list li button:hover { color: var(--purple); }
+    .filter-check { width: 14px; height: 14px; border: 1.5px solid var(--black); display: inline-block; flex-shrink: 0; }
+    .filter-check.active { background: var(--green); }
+
+    .products-main { display: flex; flex-direction: column; gap: 24px; }
+    .products-toolbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border: 1.5px solid var(--black); background: rgba(112,184,224,0.12); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .products-toolbar select { background: transparent; border: none; font-family: var(--font); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; cursor: pointer; outline: none; }
+
+    .products-grid-full { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
+    .prod-card { border: 1.5px solid var(--black); background: white; box-shadow: 4px 4px 0 var(--black); overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
+    .prod-card:hover { transform: translate(2px, 2px); box-shadow: none; }
+    .prod-card-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-bottom: 1.5px solid var(--black); position: relative; overflow: hidden; font-size: 3rem; }
+    .prod-badge { position: absolute; top: 12px; left: 12px; background: var(--purple); color: white; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 10px; border: 1.5px solid var(--black); }
+    .prod-card-body { padding: 16px; }
+    .prod-card-cat { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 4px; }
+    .prod-card-name { font-size: 1rem; font-weight: 700; text-transform: uppercase; line-height: 1.2; margin-bottom: 12px; }
+    .prod-card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .prod-price { font-size: 1.2rem; font-weight: 700; }
+    .prod-buy { background: var(--black); color: var(--cream); font-family: var(--font); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 14px; border: 1.5px solid var(--black); cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; box-shadow: 2px 2px 0 var(--purple); }
+    .prod-buy:hover { transform: translate(1px,1px); box-shadow: none; }
+
+    .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 48px; }
+    .page-btn { width: 40px; height: 40px; border: 1.5px solid var(--black); background: white; font-family: var(--font); font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .page-btn:hover, .page-btn.active { background: var(--purple); color: white; }
+    .page-btn-text { padding: 0 16px; height: 40px; }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <nav class="navbar" role="navigation" aria-label="Menu principal">
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Bem-vindos ao clube</span><span>Internet baby club</span><span>Feito de fãs para fãs</span>
+        <span>Bem-vindos ao clube</span><span>Internet baby club</span><span>Feito de fãs para fãs</span>
+        <span>Bem-vindos ao clube</span><span>Internet baby club</span><span>Feito de fãs para fãs</span>
+      </div>
+    </div>
+    <div class="nav-top">
+      <button class="hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-socials" aria-label="Redes sociais">
+        <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="white" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter/X" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M4 20L20 4"/></svg>
+        </a>
+      </div>
+      <a class="nav-logo" href="../index.html" aria-label="Internet Baby Club — Início">
+        <img src="../assets/img/logo internet baby club preta_Prancheta 1.png" alt="Internet Baby Club"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="logo-placeholder" style="display:none;">Internet Baby Club</span>
+      </a>
+      <div class="nav-icons" aria-label="Ações">
+        <button class="nav-icon-btn search-btn" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <div class="search-input-wrap"><input type="text" placeholder="Buscar produtos..." aria-label="Campo de busca" /></div>
+        </button>
+        <button class="nav-icon-btn hide-mobile" id="openAuth" aria-label="Cadastro e Login">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="btn-label">Cadastro/Login</span>
+        </button>
+        <button class="nav-icon-btn hide-mobile" aria-label="Lista de desejos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="btn-label">Lista de Desejos</span>
+        </button>
+        <button class="nav-icon-btn" aria-label="Carrinho de compras" style="position:relative;">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="btn-label">Carrinho</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </button>
+      </div>
+    </div>
+    <ul class="nav-menu" role="menubar">
+      <li role="none"><a href="../index.html" role="menuitem">Início</a></li>
+      <li role="none"><a href="lancamentos.html" role="menuitem">Lançamentos</a></li>
+      <li role="none"><a href="produtos.html" role="menuitem" class="active">Produtos</a></li>
+      <li role="none"><a href="artistas.html" role="menuitem">Artistas</a></li>
+      <li role="none"><a href="lista-de-desejos.html" role="menuitem">Lista de Desejos</a></li>
+      <li role="none"><a href="sobre.html" role="menuitem">Sobre</a></li>
+      <li role="none"><a href="contato.html" role="menuitem">Contato</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-offset">
+    <div class="products-page">
+      <div class="products-page-header">
+        <h1>Todos os Produtos</h1>
+        <p>Explore a curadoria completa do Internet Baby Club. De itens vestíveis a colecionáveis analógicos para a era digital.</p>
+      </div>
+
+      <div class="products-layout">
+        <!-- Sidebar filtros -->
+        <aside class="sidebar">
+          <div class="filter-box">
+            <h3>Categorias</h3>
+            <ul class="filter-list">
+              <li><button><span class="filter-check active"></span> Todas</button></li>
+              <li><button><span class="filter-check"></span> Camisetas</button></li>
+              <li><button><span class="filter-check"></span> Ecobags</button></li>
+              <li><button><span class="filter-check"></span> Bonés</button></li>
+              <li><button><span class="filter-check"></span> Pôsteres</button></li>
+              <li><button><span class="filter-check"></span> Chaveiros</button></li>
+              <li><button><span class="filter-check"></span> Papelaria</button></li>
+              <li><button><span class="filter-check"></span> Fanzines</button></li>
+              <li><button><span class="filter-check"></span> Canecas</button></li>
+              <li><button><span class="filter-check"></span> Pulseiras</button></li>
+              <li><button><span class="filter-check"></span> Colecionáveis</button></li>
+            </ul>
+          </div>
+          <div class="filter-box">
+            <h3>Preço</h3>
+            <input type="range" style="width:100%; accent-color: var(--purple); margin-bottom:8px;" />
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:700;">
+              <span>R$ 0</span><span>R$ 500+</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Grid de produtos -->
+        <div class="products-main">
+          <div class="products-toolbar">
+            <span>Exibindo 12 de 48 produtos</span>
+            <select aria-label="Ordenar por">
+              <option>Relevância</option>
+              <option>Menor Preço</option>
+              <option>Maior Preço</option>
+              <option>Novidades</option>
+            </select>
+          </div>
+
+          <div class="products-grid-full">
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--green);">
+                👕
+                <span class="prod-badge">Novo</span>
+              </div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Camisetas</p>
+                <p class="prod-card-name">Digital Baby Tee</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 149</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--blue);">🛍️</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Ecobags</p>
+                <p class="prod-card-name">Club Tote Bag</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 89</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:#c8a8d8;">🧢</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Bonés</p>
+                <p class="prod-card-name">Offline Cap</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 120</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--blue);">🖼️</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Pôsteres</p>
+                <p class="prod-card-name">Binary Dreams A3</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 75</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--green);">
+                👕
+                <span class="prod-badge" style="background:var(--blue);">Destaque</span>
+              </div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Camisetas</p>
+                <p class="prod-card-name">Essential Logo Tee</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 130</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--blue);">🧢</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Bonés</p>
+                <p class="prod-card-name">Analog Hat</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 110</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:#FCFCED;">☕</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Canecas</p>
+                <p class="prod-card-name">Caneca Baby Club</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 55</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--green);">📖</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Fanzines</p>
+                <p class="prod-card-name">Fanzine Vol. 1</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 28</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:#c8a8d8;">📿</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Pulseiras</p>
+                <p class="prod-card-name">Pulseira IBC</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 18</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--blue);">🔑</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Chaveiros</p>
+                <p class="prod-card-name">Chaveiro IBC</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 22</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:var(--green);">📔</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Papelaria</p>
+                <p class="prod-card-name">Caderno Baby</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 42</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prod-card">
+              <div class="prod-card-img" style="background:#c8a8d8;">⭐</div>
+              <div class="prod-card-body">
+                <p class="prod-card-cat">Colecionáveis</p>
+                <p class="prod-card-name">Mini Figura IBC</p>
+                <div class="prod-card-footer">
+                  <span class="prod-price">R$ 65</span>
+                  <button class="prod-buy add-cart-btn">Comprar</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span>...</span>
+            <button class="page-btn">8</button>
+            <button class="page-btn page-btn-text">Próximo →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="../assets/img/logo-cream.png" alt="Internet Baby Club"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="logo-placeholder" style="display:none;">Internet Baby Club</span>
+        <p>Feito de fãs para fãs,<br/>com muito amor e carinho.</p>
+      </div>
+      <div class="footer-col">
+        <h4>loja</h4>
+        <ul>
+          <li><a href="produtos.html">Todos os produtos</a></li>
+          <li><a href="lancamentos.html">Lançamentos</a></li>
+          <li><a href="lista-de-desejos.html">Lista de Desejos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informações</h4>
+        <ul>
+          <li><a href="sobre.html">Sobre nós</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="artistas.html">Artistas</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Internet Baby Club — feito de fãs para fãs 🦋</span>
+    </div>
+  </footer>
+
+  <div class="auth-overlay" id="authOverlay" aria-hidden="true">
+    <div class="auth-modal" role="dialog" aria-modal="true" aria-label="Login e Cadastro">
+      <button class="auth-close" id="authClose" aria-label="Fechar">
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="cadastro">Cadastro</button>
+        <button class="auth-tab" data-tab="login">Login</button>
+        <div class="auth-tab-indicator"></div>
+      </div>
+      <div class="auth-panel active" id="panel-cadastro">
+        <h2>Bem-vindo ao clube!</h2>
+        <p class="auth-subtitle">Crie sua conta do IBC</p>
+        <div class="auth-field"><label for="cad-nome">Nome</label><input type="text" id="cad-nome" placeholder="Seu nome" /></div>
+        <div class="auth-field"><label for="cad-email">E-mail</label><input type="email" id="cad-email" placeholder="seuemail@exemplo.com" /></div>
+        <div class="auth-field"><label for="cad-senha">Senha</label><input type="password" id="cad-senha" placeholder="••••••••" /></div>
+        <button class="auth-submit">Criar conta</button>
+        <p class="auth-switch">Já tem conta? <button class="auth-switch-btn" data-goto="login">Fazer login</button></p>
+      </div>
+      <div class="auth-panel" id="panel-login">
+        <h2>Olá de volta!</h2>
+        <p class="auth-subtitle">Entre na sua conta do IBC</p>
+        <div class="auth-field"><label for="login-email">E-mail</label><input type="email" id="login-email" placeholder="seuemail@exemplo.com" /></div>
+        <div class="auth-field"><label for="login-senha">Senha</label><input type="password" id="login-senha" placeholder="••••••••" /></div>
+        <a href="#" class="auth-forgot">Esqueci minha senha</a>
+        <button class="auth-submit">Entrar</button>
+        <p class="auth-switch">Não tem conta? <button class="auth-switch-btn" data-goto="cadastro">Criar conta</button></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
