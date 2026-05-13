@@ -14,8 +14,6 @@ O fluxo completo seguiu as etapas abaixo.
 
 ### 1.1 Prints das telas geradas
 
-> ⚠️ *Adicionar aqui os prints/screenshots das telas geradas pelo Stitch. Os arquivos `screen.png` de cada página estão disponíveis no ZIP exportado pelo Stitch.*
-
 As páginas geradas foram:
 <img width="825" height="1600" alt="screen" src="https://github.com/user-attachments/assets/2c6ce52d-5318-4094-bb3d-f4791a2a6f27" />
 <img width="1088" height="1600" alt="screen" src="https://github.com/user-attachments/assets/56d62505-9bc8-47b5-a6eb-8b9c135d7dde" />
