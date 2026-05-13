@@ -146,5 +146,3 @@ internet-baby-club/
 - A identidade visual Y2K foi mantida em todas as páginas geradas
 
 ---
-
-<img width="876" height="1600" alt="screen" src="https://github.com/user-attachments/assets/662d6694-e3b7-45ca-b65e-a502f6853df4" />
