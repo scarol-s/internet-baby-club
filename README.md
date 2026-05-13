@@ -117,7 +117,7 @@ internet-baby-club/
 
 ## Etapa 4 — Repositório no GitHub
 
- **Link do repositório:** ``
+ **Link do repositório:** `https://github.com/scarol-s/internet-baby-club`
 
 ---
 
